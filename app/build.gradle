@@ -33,7 +33,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.facebook.fresco:animated-base-support:0.12.0'
     compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.facebook.fresco:animated-base-support:0.12.0'
@@ -46,7 +45,9 @@ dependencies {
     compile 'org.apache.httpcomponents:httpcore:4.3.2'
     compile 'org.apache.httpcomponents:httpmime:4.3.5'
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.google.firebase:firebase-messaging:9.6.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.0'
+    testCompile 'junit:junit:4.12'
 }
+
 
 apply plugin: 'com.google.gms.google-services'
