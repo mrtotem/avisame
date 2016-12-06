@@ -32,8 +32,8 @@ public class SignInLoader extends JSONWebServiceLoader<User> {
     @Override
     protected User processResponse(JSONObject response) throws JSONException {
 
-        User user = new Gson().fromJson(response.toString(), User.class);
-        return user;
+        AppSettings.setTokenValue(response.getString("token"));
+        return new Gson().fromJson(response.toString(), User.class);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SignInLoader extends JSONWebServiceLoader<User> {
 
         JSONObject data = new JSONObject();
         try{
-            data.put("email", "tota@tota.com");
+            data.put("email", "jero@jero.com");
             data.put("password", "12345678");
         }catch (Exception e){
             e.printStackTrace();

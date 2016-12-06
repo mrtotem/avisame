@@ -14,7 +14,7 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            buildConfigField "String", "BASE_API_URL", '"https://pacific-atoll-58771.herokuapp.com/"'
+            buildConfigField "String", "BASE_API_URL", '"http://192.168.88.41:3000/"'
         }
         release {
             minifyEnabled false
@@ -45,7 +45,8 @@ dependencies {
     compile 'org.apache.httpcomponents:httpcore:4.3.2'
     compile 'org.apache.httpcomponents:httpmime:4.3.5'
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.google.firebase:firebase-messaging:10.0.0'
+    compile 'com.google.firebase:firebase-core:9.6.1'
+    compile 'com.google.firebase:firebase-messaging:9.6.1'
     testCompile 'junit:junit:4.12'
 }
 

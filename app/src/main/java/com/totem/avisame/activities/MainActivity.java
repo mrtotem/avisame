@@ -27,12 +27,14 @@ import com.totem.avisame.models.User;
 import com.totem.avisame.network.base.LoaderResponse;
 import com.totem.avisame.network.loaders.ArrivedMessageLoader;
 import com.totem.avisame.network.loaders.SignInLoader;
+import com.totem.avisame.network.loaders.UpdateUserLoader;
 import com.totem.avisame.widgets.CustomTabLayout;
 
 public class MainActivity extends AppCompatActivity
         implements
         MainFragment.MainFragmentActions,
-        LoadingViewController {
+        LoadingViewController,
+        ProfileFragment.ProfileActions {
 
     private CustomTabLayout mTabLayout;
     private MainTabs mMainTabSelected = MainTabs.HOME;
@@ -52,9 +54,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
 
-            if(data.getError() != null){
+            if (data.getError() != null) {
 
-            }else{
+            } else {
 
                 Snackbar.make(findViewById(android.R.id.content), "Buenísimo :)", Snackbar.LENGTH_LONG).show();
             }
@@ -65,6 +67,32 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onLoaderReset(Loader<LoaderResponse<Message>> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<User>> mUpdateUserCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<User>>() {
+        @Override
+        public Loader<LoaderResponse<User>> onCreateLoader(int id, Bundle args) {
+            return new UpdateUserLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<User>> loader, LoaderResponse<User> data) {
+
+            if (data.getError() != null) {
+
+            } else {
+
+                AppSettings.setUserData(data.getResponse());
+                AppSettings.setPushTokenValue(AppSettings.getUser().getPushToken());
+            }
+
+            hideLoadingView();
+            getSupportLoaderManager().destroyLoader(LoaderIDs.PUT_UPDATE_USER.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<User>> loader) {
 
         }
     };
@@ -178,5 +206,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDangerListener() {
         new SendDangerDialogFragment(MainActivity.this).show(getSupportFragmentManager(), "SEND-DANGER-DIALOG");
+    }
+
+    @Override
+    public void getUserProfile() {
+
+        showLoadingView();
+        getSupportLoaderManager().restartLoader(LoaderIDs.PUT_UPDATE_USER.getId(), null, mUpdateUserCallback);
     }
 }

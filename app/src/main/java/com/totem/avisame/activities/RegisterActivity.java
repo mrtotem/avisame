@@ -37,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity
             } else {
 
                 AppSettings.setUserData(data.getResponse());
-                AppSettings.setTokenValue(AppSettings.getUser().getToken());
                 Snackbar.make(findViewById(android.R.id.content), "Bienvenid@ :)", Snackbar.LENGTH_LONG).show();
 
                 goHome();
@@ -58,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        if(AppSettings.getUser() != null && AppSettings.getUser().getToken() != null && !AppSettings.getUser().getToken().isEmpty()){
+        if(AppSettings.getTokenValue() != null && !AppSettings.getTokenValue().isEmpty()){
 
             goHome();
         }else{

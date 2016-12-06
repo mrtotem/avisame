@@ -3,7 +3,8 @@ package com.totem.avisame.enums;
 public enum LoaderIDs {
 
     POST_LOGIN(0),
-    POST_ARRIVED(1);
+    POST_ARRIVED(1),
+    PUT_UPDATE_USER(2);
 
     private final int id;
 

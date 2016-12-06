@@ -97,9 +97,9 @@ public abstract class JSONWebServiceLoader<T> extends BaseWebServiceLoader<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 try {
-                    if (AppSettings.getUser() != null && AppSettings.getUser().getToken() != null) {
+                    if (AppSettings.getTokenValue() != null) {
                         headers.put("Content-Type", "application/json");
-                        headers.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getUser().getToken());
+                        headers.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getTokenValue());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -128,7 +128,7 @@ public abstract class JSONWebServiceLoader<T> extends BaseWebServiceLoader<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getUser().getToken());
+                headers.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getTokenValue());
                 return headers;
             }
 
@@ -190,8 +190,8 @@ public abstract class JSONWebServiceLoader<T> extends BaseWebServiceLoader<T> {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 try {
-                    if (AppSettings.getUser() != null && AppSettings.getUser().getToken() != null)
-                        params.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getUser().getToken());
+                    if (AppSettings.getTokenValue() != null)
+                        params.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getTokenValue());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

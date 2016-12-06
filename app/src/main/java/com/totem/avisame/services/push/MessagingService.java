@@ -17,10 +17,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.totem.avisame.R;
 import com.totem.avisame.activities.MainActivity;
 
-/**
- * Created by Pablo on 13/7/16.
- */
-
 public class MessagingService extends FirebaseMessagingService {
 
     @Override

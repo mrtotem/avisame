@@ -13,6 +13,8 @@ public class User implements Serializable {
     private String id;
     @SerializedName("token")
     private String token;
+    @SerializedName("pushToken")
+    private String pushToken;
     @SerializedName("email")
     private String email;
     @SerializedName("password")
@@ -24,14 +26,19 @@ public class User implements Serializable {
     @SerializedName("dni")
     private String dni;
 
-    public User(String id,String token , String email, String password, String firstName, String lastName, String dni) {
+    public User(String id, String token, String pushToken, String email, String password, String firstName, String lastName, String dni) {
         this.id = id;
         this.token = token;
+        this.pushToken = pushToken;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dni = dni;
+    }
+
+    public String getPushToken() {
+        return pushToken;
     }
 
     public String getToken() {
