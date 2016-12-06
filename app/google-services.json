@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "136409186438",
+    "firebase_url": "https://avisame-52992.firebaseio.com",
+    "project_id": "avisame-52992",
+    "storage_bucket": "avisame-52992.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136409186438:android:030dbf9d9b95b06c",
+        "android_client_info": {
+          "package_name": "com.totem.avisame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136409186438-j5s053sa32qc1fp5el23rlu06lo409e0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKGdTlm5bt6zkFBQdeyZ3AVT6pK4iUnTE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
