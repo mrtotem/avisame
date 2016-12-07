@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
+import com.totem.avisame.TokenManager;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.User;
 import com.totem.avisame.network.ServiceCatalog;
@@ -44,10 +45,14 @@ public class UpdateUserLoader extends JSONWebServiceLoader<User> {
     protected JSONObject getRequestData() {
 
         JSONObject data = new JSONObject();
-        try{
-
-            data.put("pushToken", AppSettings.getUser().getPushToken());
-        }catch (Exception e){
+        try {
+            if (TokenManager.getInstance().getToken() != null)
+                data.put("pushToken", TokenManager.getInstance().getToken());
+            if (mArgs.getString("firstName") != null)
+                data.put("firstName", mArgs.getString("firstName"));
+            if (mArgs.getString("lastName") != null)
+                data.put("lastName", mArgs.getString("lastName"));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

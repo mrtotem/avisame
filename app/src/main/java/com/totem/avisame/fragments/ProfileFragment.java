@@ -52,11 +52,11 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mListener.getUserProfile();
+        mListener.getUserProfile(new Bundle());
     }
 
     public interface ProfileActions {
 
-        void getUserProfile();
+        void getUserProfile(Bundle bundle);
     }
 }

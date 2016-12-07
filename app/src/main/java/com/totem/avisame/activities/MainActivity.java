@@ -209,9 +209,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void getUserProfile() {
+    public void getUserProfile(Bundle bundle) {
 
         showLoadingView();
-        getSupportLoaderManager().restartLoader(LoaderIDs.PUT_UPDATE_USER.getId(), null, mUpdateUserCallback);
+        getSupportLoaderManager().restartLoader(LoaderIDs.PUT_UPDATE_USER.getId(), bundle, mUpdateUserCallback);
     }
 }

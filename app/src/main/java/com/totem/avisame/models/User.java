@@ -37,6 +37,11 @@ public class User implements Serializable {
         this.dni = dni;
     }
 
+    public User(String id, String token) {
+        this.id = id;
+        this.token = token;
+    }
+
     public String getPushToken() {
         return pushToken;
     }

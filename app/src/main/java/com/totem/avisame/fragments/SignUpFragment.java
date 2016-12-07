@@ -16,21 +16,21 @@ import com.totem.avisame.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignInFragment extends Fragment {
+public class SignUpFragment extends Fragment {
 
     private EditText mEmail, mPassword;
-    private Button mLoginButton, mRegisterButton;
-    private SignInActions mListener;
+    private Button mLoginButton;
+    private SignUpActions mListener;
 
-    public SignInFragment() {
+    public SignUpFragment() {
         // Required empty public constructor
     }
 
-    public static SignInFragment newInstance() {
+    public static SignUpFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        SignInFragment fragment = new SignInFragment();
+        SignUpFragment fragment = new SignUpFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +39,7 @@ public class SignInFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mListener = (SignInActions) getActivity();
+            mListener = (SignUpActions) getActivity();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,12 +49,11 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        View v = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         mEmail = (EditText) v.findViewById(R.id.email_field);
         mPassword = (EditText) v.findViewById(R.id.password_field);
         mLoginButton = (Button) v.findViewById(R.id.login_button);
-        mRegisterButton = (Button) v.findViewById(R.id.register_button);
 
         return v;
     }
@@ -78,23 +77,14 @@ public class SignInFragment extends Fragment {
 
                     args.putString("email", String.valueOf(mEmail.getText()));
                     args.putString("password", String.valueOf(mPassword.getText()));
-                    mListener.onSignInRequested(args);
+                    mListener.onSignUpRequested(args);
                 }
-            }
-        });
-
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onRegisterRequested();
             }
         });
     }
 
-    public interface SignInActions {
+    public interface SignUpActions {
 
-        void onSignInRequested(Bundle bundle);
-
-        void onRegisterRequested();
+        void onSignUpRequested(Bundle bundle);
     }
 }
