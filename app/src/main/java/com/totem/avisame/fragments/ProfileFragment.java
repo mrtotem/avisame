@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        ((MainActivity)getActivity()).disableSwipeToRefresh();
+        ((MainActivity) getActivity()).disableSwipeToRefresh();
     }
 
     private void setListeners() {
@@ -100,21 +100,27 @@ public class ProfileFragment extends Fragment {
                 }
                 if (mFriends.getText() != null && !String.valueOf(mFriends.getText()).isEmpty()) {
                     if (AppSettings.getUser().getFriends() != null) {
-                        if (!AppSettings.getUser().getFriends().contains(String.valueOf(mFriends.getText()))) {
-
-                            List<String> friends = AppSettings.getUser().getFriends();
-                            friends.add(String.valueOf(mFriends.getText()));
-                            AppSettings.getUser().setFriends(friends);
-                        }
-                    } else {
-
+//                        if (!AppSettings.getUser().getFriends().contains(String.valueOf(mFriends.getText()))) {
+//
+//                            List<String> friends = AppSettings.getUser().getFriends();
+//                            friends.add(String.valueOf(mFriends.getText()));
+//                            AppSettings.getUser().setFriends(friends);
+//                        }
+//
+//                    } else {
+//
+//                        List<String> friends = new ArrayList<>();
+//                        friends.add(String.valueOf(mFriends.getText()));
+//                        User temp = AppSettings.getUser();
+//                        temp.setFriends(friends);
+//                        AppSettings.setUserData(temp);
+//                    }
                         List<String> friends = new ArrayList<>();
                         friends.add(String.valueOf(mFriends.getText()));
                         User temp = AppSettings.getUser();
                         temp.setFriends(friends);
                         AppSettings.setUserData(temp);
                     }
-
                 }
                 mListener.getUserProfile(args);
             }

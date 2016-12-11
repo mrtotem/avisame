@@ -77,7 +77,7 @@ public class MainFragment extends Fragment {
         mArrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (AppSettings.getUser().getFriends() != null) {
+                if (AppSettings.getUser().getFriends() != null && !AppSettings.getUser().getFriends().get(0).isEmpty()) {
                     mListener.onArrivedListener();
                 } else {
                     Snackbar.make(v, "Primero agregá un amigo en la sección perfil :)", Snackbar.LENGTH_SHORT).show();
@@ -88,7 +88,7 @@ public class MainFragment extends Fragment {
         mAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (AppSettings.getUser().getFriends() != null) {
+                if (AppSettings.getUser().getFriends() != null && !AppSettings.getUser().getFriends().get(0).isEmpty()) {
                     mListener.onAlertListener();
                 } else {
                     Snackbar.make(v, "Primero agregá un amigo en la sección perfil :)", Snackbar.LENGTH_SHORT).show();
@@ -99,7 +99,7 @@ public class MainFragment extends Fragment {
         mDanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (AppSettings.getUser().getFriends() != null) {
+                if (AppSettings.getUser().getFriends() != null && !AppSettings.getUser().getFriends().get(0).isEmpty()) {
                     mListener.onDangerListener();
                 } else {
                     Snackbar.make(v, "Primero agregá un amigo en la sección perfil :)", Snackbar.LENGTH_SHORT).show();
