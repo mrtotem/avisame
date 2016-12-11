@@ -99,7 +99,7 @@ public class ProfileFragment extends Fragment {
                     args.putString("lastName", String.valueOf(mLastname.getText()));
                 }
                 if (mFriends.getText() != null && !String.valueOf(mFriends.getText()).isEmpty()) {
-                    if (AppSettings.getUser().getFriends() != null) {
+//                    if (AppSettings.getUser().getFriends() != null) {
 //                        if (!AppSettings.getUser().getFriends().contains(String.valueOf(mFriends.getText()))) {
 //
 //                            List<String> friends = AppSettings.getUser().getFriends();
@@ -115,12 +115,12 @@ public class ProfileFragment extends Fragment {
 //                        temp.setFriends(friends);
 //                        AppSettings.setUserData(temp);
 //                    }
-                        List<String> friends = new ArrayList<>();
-                        friends.add(String.valueOf(mFriends.getText()));
-                        User temp = AppSettings.getUser();
-                        temp.setFriends(friends);
-                        AppSettings.setUserData(temp);
-                    }
+//                    }
+                    List<String> friends = new ArrayList<>();
+                    friends.add(String.valueOf(mFriends.getText()));
+                    User temp = AppSettings.getUser();
+                    temp.setFriends(friends);
+                    AppSettings.setUserData(temp);
                 }
                 mListener.getUserProfile(args);
             }

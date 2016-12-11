@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity
                 User temp = data.getResponse();
                 temp.setFriends(AppSettings.getUser().getFriends());
                 AppSettings.setUserData(temp);
+
+                Snackbar.make(findViewById(android.R.id.content), "Perfil guardado :)", Snackbar.LENGTH_LONG).show();
             }
 
             hideLoadingView();
