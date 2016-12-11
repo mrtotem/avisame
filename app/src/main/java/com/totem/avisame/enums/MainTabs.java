@@ -20,25 +20,25 @@ public enum MainTabs {
             case 2:
                 return "Perfil";
             default:
-                return "Botones";
+                return "Avisar!";
         }
     }
 
-//    public Integer getDrawable() {
-//
-//        switch (this) {
-//
-//            case HOME:
-//                return R.drawable.store_gray;
-//
-//            case CHAIR:
-//                return R.drawable.caldendar_gray;
-//
-//            case PROFILE:
-//                return R.drawable.user_gray;
-//
-//            default:
-//                return 0;
-//        }
-//    }
+    public Integer getDrawable() {
+
+        switch (this) {
+
+            case HOME:
+                return R.drawable.phone;
+
+            case MESSAGES:
+                return R.drawable.email;
+
+            case PROFILE:
+                return R.drawable.user_gray;
+
+            default:
+                return 0;
+        }
+    }
 }

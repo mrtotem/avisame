@@ -4,6 +4,7 @@ package com.totem.avisame.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.totem.avisame.R;
+import com.totem.avisame.activities.MainActivity;
+import com.totem.avisame.application.AppSettings;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,10 +39,10 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
+        try {
 
             mListener = (MainFragmentActions) context;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -60,37 +63,57 @@ public class MainFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setListeners();
+        setListeners(view);
     }
 
-    private void setListeners(){
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).disableSwipeToRefresh();
+    }
+
+    private void setListeners(final View v) {
 
         mArrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onArrivedListener();
+                if (AppSettings.getUser().getFriends() != null) {
+                    mListener.onArrivedListener();
+                } else {
+                    Snackbar.make(v, "Primero agregá un amigo en la sección perfil :)", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 
         mAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onAlertListener();
+                if (AppSettings.getUser().getFriends() != null) {
+                    mListener.onAlertListener();
+                } else {
+                    Snackbar.make(v, "Primero agregá un amigo en la sección perfil :)", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 
         mDanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onDangerListener();
+                if (AppSettings.getUser().getFriends() != null) {
+                    mListener.onDangerListener();
+                } else {
+                    Snackbar.make(v, "Primero agregá un amigo en la sección perfil :)", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    public interface MainFragmentActions{
+    public interface MainFragmentActions {
 
         void onArrivedListener();
+
         void onAlertListener();
+
         void onDangerListener();
     }
 }

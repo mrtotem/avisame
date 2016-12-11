@@ -27,7 +27,7 @@ public class SignUpLoader extends JSONWebServiceLoader<User> {
     @Override
     protected User processResponse(JSONObject response) throws JSONException {
 
-        AppSettings.setPushTokenValue(response.getString("token"));
+        AppSettings.setTokenValue(response.getString("token"));
         return new User(response.getString("_id"), response.getString("email"));
     }
 

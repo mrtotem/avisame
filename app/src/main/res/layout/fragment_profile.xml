@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="40dp"
@@ -18,25 +18,106 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/stroke_text"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="5dp"/>
-
                 <TextView
                     android:id="@+id/email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
                     android:enabled="false"
-                    android:hint="Email" />
+                    android:gravity="center"
+                    android:hint="Email.."
+                    android:singleLine="true"
+                    android:textColor="@color/titleTextView"
+                    android:textColorHint="@color/hintEditText"
+                    android:textSize="13sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/stroke_text"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <EditText
+                    android:id="@+id/first_name"
+                    style="@style/BaseAvisameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:hint="Nombre.."
+                    android:singleLine="true"
+                    android:textColor="@color/titleTextView"
+                    android:textColorHint="@color/hintEditText"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/stroke_text"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <EditText
+                    android:id="@+id/last_name"
+                    style="@style/BaseAvisameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:hint="Apellido.."
+                    android:singleLine="true"
+                    android:textColor="@color/titleTextView"
+                    android:textColorHint="@color/hintEditText"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Amigos agendados"
+                android:textColor="@color/titleTextView"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/stroke_text"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <EditText
+                    android:id="@+id/friends_input"
+                    style="@style/BaseAvisameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:hint="Amigos.."
+                    android:singleLine="true"
+                    android:textColor="@color/titleTextView"
+                    android:textColorHint="@color/hintEditText"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/save_button"
+                style="@style/BasicButtonStyle"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/common_button"
+                android:text="Guardar"
+                android:textColor="@color/background_dirty_white" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

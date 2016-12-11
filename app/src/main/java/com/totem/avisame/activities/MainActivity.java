@@ -25,7 +25,9 @@ import com.totem.avisame.interfaces.LoadingViewController;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.models.User;
 import com.totem.avisame.network.base.LoaderResponse;
+import com.totem.avisame.network.loaders.AlertMessageLoader;
 import com.totem.avisame.network.loaders.ArrivedMessageLoader;
+import com.totem.avisame.network.loaders.DangerMessageLoader;
 import com.totem.avisame.network.loaders.SignInLoader;
 import com.totem.avisame.network.loaders.UpdateUserLoader;
 import com.totem.avisame.widgets.CustomTabLayout;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     private LoaderManager.LoaderCallbacks<LoaderResponse<Message>> mArrivedCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<Message>>() {
         @Override
         public Loader<LoaderResponse<Message>> onCreateLoader(int id, Bundle args) {
-            return new ArrivedMessageLoader(MainActivity.this, null);
+            return new ArrivedMessageLoader(MainActivity.this, args);
         }
 
         @Override
@@ -70,6 +72,56 @@ public class MainActivity extends AppCompatActivity
 
         }
     };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<Message>> mAlertCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<Message>>() {
+        @Override
+        public Loader<LoaderResponse<Message>> onCreateLoader(int id, Bundle args) {
+            return new AlertMessageLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
+
+            if (data.getError() != null) {
+
+            } else {
+
+                Snackbar.make(findViewById(android.R.id.content), ":/", Snackbar.LENGTH_LONG).show();
+            }
+
+            hideLoadingView();
+            getSupportLoaderManager().destroyLoader(LoaderIDs.POST_ALERT.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<Message>> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<Message>> mDangerCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<Message>>() {
+        @Override
+        public Loader<LoaderResponse<Message>> onCreateLoader(int id, Bundle args) {
+            return new DangerMessageLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
+
+            if (data.getError() != null) {
+
+            } else {
+
+                Snackbar.make(findViewById(android.R.id.content), ":/ :/", Snackbar.LENGTH_LONG).show();
+            }
+
+            hideLoadingView();
+            getSupportLoaderManager().destroyLoader(LoaderIDs.POST_DANGER.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<Message>> loader) {
+
+        }
+    };
     private LoaderManager.LoaderCallbacks<LoaderResponse<User>> mUpdateUserCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<User>>() {
         @Override
         public Loader<LoaderResponse<User>> onCreateLoader(int id, Bundle args) {
@@ -83,8 +135,9 @@ public class MainActivity extends AppCompatActivity
 
             } else {
 
-                AppSettings.setUserData(data.getResponse());
-                AppSettings.setPushTokenValue(AppSettings.getUser().getPushToken());
+                User temp = data.getResponse();
+                temp.setFriends(AppSettings.getUser().getFriends());
+                AppSettings.setUserData(temp);
             }
 
             hideLoadingView();
@@ -124,7 +177,7 @@ public class MainActivity extends AppCompatActivity
 
             for (MainTabs mainTab : mMainTabsList) {
                 TabLayout.Tab tab = mTabLayout.newTab();
-//                tab.setIcon(getResources().getDrawable(mainTab.getDrawable()));
+                tab.setIcon(getResources().getDrawable(mainTab.getDrawable()));
                 tab.setText(mainTab.getTabName());
                 mTabLayout.addTab(tab);
             }
@@ -195,16 +248,32 @@ public class MainActivity extends AppCompatActivity
     public void onArrivedListener() {
 
         showLoadingView();
-        getSupportLoaderManager().restartLoader(LoaderIDs.POST_ARRIVED.getId(), null, mArrivedCallback);
+
+        Bundle args = new Bundle();
+        args.putString("email", AppSettings.getUser().getFriends().get(0));
+
+        getSupportLoaderManager().restartLoader(LoaderIDs.POST_ARRIVED.getId(), args, mArrivedCallback);
     }
 
     @Override
     public void onAlertListener() {
+
+        Bundle args = new Bundle();
+        args.putString("email", AppSettings.getUser().getFriends().get(0));
+
+        getSupportLoaderManager().restartLoader(LoaderIDs.POST_ALERT.getId(), args, mAlertCallback);
+
         new SendAlertDialogFragment(MainActivity.this).show(getSupportFragmentManager(), "SEND-ALERT-DIALOG");
     }
 
     @Override
     public void onDangerListener() {
+
+        Bundle args = new Bundle();
+        args.putString("email", AppSettings.getUser().getFriends().get(0));
+
+        getSupportLoaderManager().restartLoader(LoaderIDs.POST_DANGER.getId(), args, mDangerCallback);
+
         new SendDangerDialogFragment(MainActivity.this).show(getSupportFragmentManager(), "SEND-DANGER-DIALOG");
     }
 
@@ -213,5 +282,13 @@ public class MainActivity extends AppCompatActivity
 
         showLoadingView();
         getSupportLoaderManager().restartLoader(LoaderIDs.PUT_UPDATE_USER.getId(), bundle, mUpdateUserCallback);
+    }
+
+    public void disableSwipeToRefresh() {
+        mSwipeRefreshLayout.setEnabled(false);
+    }
+
+    public void enableSwipeToRefresh() {
+        mSwipeRefreshLayout.setEnabled(true);
     }
 }

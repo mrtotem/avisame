@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.totem.avisame.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppSettings {
@@ -102,7 +103,8 @@ public class AppSettings {
     }
 
     enum KeysValues {
-        USER_DATA
+        USER_DATA,
+        USER_FRIENDS
     }
 
 }

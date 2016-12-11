@@ -51,15 +51,9 @@ public class MessagingService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
-        setNotificationView(notificationBuilder, titleBody);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-    }
-
-    public void setNotificationView(NotificationCompat.Builder builder, String title) {
-        builder.setStyle(new NotificationCompat.BigPictureStyle()
-                .setBigContentTitle(title));
     }
 }

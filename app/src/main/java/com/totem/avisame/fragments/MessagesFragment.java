@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.totem.avisame.R;
+import com.totem.avisame.activities.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,4 +36,9 @@ public class MessagesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_messages, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).enableSwipeToRefresh();
+    }
 }

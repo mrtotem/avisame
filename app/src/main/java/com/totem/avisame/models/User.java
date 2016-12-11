@@ -3,6 +3,7 @@ package com.totem.avisame.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Octavio on 03/12/2016.
@@ -26,6 +27,8 @@ public class User implements Serializable {
     @SerializedName("dni")
     private String dni;
 
+    private List<String> friends;
+
     public User(String id, String token, String pushToken, String email, String password, String firstName, String lastName, String dni) {
         this.id = id;
         this.token = token;
@@ -37,9 +40,9 @@ public class User implements Serializable {
         this.dni = dni;
     }
 
-    public User(String id, String token) {
+    public User(String id, String email) {
         this.id = id;
-        this.token = token;
+        this.email = email;
     }
 
     public String getPushToken() {
@@ -72,5 +75,13 @@ public class User implements Serializable {
 
     public String getDni() {
         return dni;
+    }
+
+    public List<String> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<String> friends) {
+        this.friends = friends;
     }
 }

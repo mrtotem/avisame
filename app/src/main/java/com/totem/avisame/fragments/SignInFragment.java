@@ -86,7 +86,7 @@ public class SignInFragment extends Fragment {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onRegisterRequested();
+                mListener.goToSignUp();
             }
         });
     }
@@ -95,6 +95,6 @@ public class SignInFragment extends Fragment {
 
         void onSignInRequested(Bundle bundle);
 
-        void onRegisterRequested();
+        void goToSignUp();
     }
 }

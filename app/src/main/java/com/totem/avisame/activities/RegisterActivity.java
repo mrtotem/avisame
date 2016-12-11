@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.totem.avisame.R;
+import com.totem.avisame.activities.bases.BaseActivity;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.enums.LoaderIDs;
 import com.totem.avisame.fragments.SignInFragment;
@@ -18,9 +19,13 @@ import com.totem.avisame.models.User;
 import com.totem.avisame.network.base.LoaderResponse;
 import com.totem.avisame.network.loaders.SignInLoader;
 import com.totem.avisame.network.loaders.SignUpLoader;
+import com.totem.avisame.network.loaders.UpdateUserLoader;
 import com.totem.avisame.utils.AnimUtils;
 
-public class RegisterActivity extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.List;
+
+public class RegisterActivity extends BaseActivity
         implements
         LoadingViewController,
         SignInFragment.SignInActions,
@@ -36,17 +41,42 @@ public class RegisterActivity extends AppCompatActivity
         public void onLoadFinished(Loader<LoaderResponse<User>> loader, LoaderResponse<User> data) {
 
             if (data.getError() != null) {
+                hideLoadingView();
+            } else {
+
+                AppSettings.setUserData(data.getResponse());
+                getSupportLoaderManager().restartLoader(LoaderIDs.PUT_UPDATE_USER.getId(), null, mUpdateUserCallback);
+            }
+
+            getSupportLoaderManager().destroyLoader(LoaderIDs.POST_REGISTER.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<User>> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<User>> mUpdateUserCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<User>>() {
+        @Override
+        public Loader<LoaderResponse<User>> onCreateLoader(int id, Bundle args) {
+            return new UpdateUserLoader(RegisterActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<User>> loader, LoaderResponse<User> data) {
+
+            if (data.getError() != null) {
 
             } else {
 
                 AppSettings.setUserData(data.getResponse());
-                Snackbar.make(findViewById(android.R.id.content), "Bienvenid@ :)", Snackbar.LENGTH_LONG).show();
 
+                Snackbar.make(findViewById(android.R.id.content), "Bienvenid@ :)", Snackbar.LENGTH_LONG).show();
                 goHome();
             }
 
             hideLoadingView();
-            getSupportLoaderManager().destroyLoader(LoaderIDs.POST_REGISTER.getId());
+            getSupportLoaderManager().destroyLoader(LoaderIDs.PUT_UPDATE_USER.getId());
         }
 
         @Override
@@ -65,15 +95,12 @@ public class RegisterActivity extends AppCompatActivity
 
             if (data.getError() != null) {
 
+                hideLoadingView();
             } else {
 
                 AppSettings.setUserData(data.getResponse());
-                Snackbar.make(findViewById(android.R.id.content), "Bienvenid@ :)", Snackbar.LENGTH_LONG).show();
-
-                goHome();
+                getSupportLoaderManager().restartLoader(LoaderIDs.PUT_UPDATE_USER.getId(), null, mUpdateUserCallback);
             }
-
-            hideLoadingView();
             getSupportLoaderManager().destroyLoader(LoaderIDs.POST_LOGIN.getId());
         }
 
@@ -93,10 +120,7 @@ public class RegisterActivity extends AppCompatActivity
             goHome();
         } else {
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, SignInFragment.newInstance())
-                    .addToBackStack("login-frag")
-                    .commit();
+            replaceFragment(SignInFragment.newInstance(), "login-frag", R.id.container, false, Animations.SlideRightToLeft);
         }
     }
 
@@ -125,12 +149,9 @@ public class RegisterActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRegisterRequested() {
+    public void goToSignUp() {
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, SignUpFragment.newInstance())
-                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                .commit();
+        replaceFragment(SignUpFragment.newInstance(), "register-frag", R.id.container, true, Animations.SlideRightToLeft);
     }
 
     @Override

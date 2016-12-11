@@ -29,7 +29,7 @@
     <style name="BaseTabLayoutStyle" parent="Widget.Design.TabLayout">
         <item name="tabBackground">@color/tabLayoutGray</item>
         <item name="tabTextColor">@color/titleTextView</item>
-        <item name="tabTextAppearance">@style/ChairRentalsTabText</item>
+        <item name="tabTextAppearance">@style/HomeTabText</item>
     </style>
 
     <style name="AppTabLayout.BottomTab" parent="Widget.Design.TabLayout">
@@ -49,9 +49,15 @@
         <!--<item name="fontPath">fonts/Hanken-Book.ttf</item>-->
     </style>
 
-    <style name="ChairRentalsTabText">
+    <style name="HomeTabText">
         <item name="android:textSize">@dimen/medium</item>
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!--Edit Text-->
+
+    <style name="BaseAvisameEditText">
+        <item name="android:inputType">textNoSuggestions</item>
     </style>
 
 </resources>

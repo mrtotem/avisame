@@ -13,4 +13,6 @@ public class ServiceCatalog {
     public static final String LOGIN = "/login";
 
     public static final String ARRIVED = "/arrived";
+    public static final String ALERT = "/alerts";
+    public static final String DANGER = "/dangers";
 }

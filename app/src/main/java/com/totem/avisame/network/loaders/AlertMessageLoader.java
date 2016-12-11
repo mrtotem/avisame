@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
-import com.totem.avisame.TokenManager;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.network.ServiceCatalog;
@@ -17,12 +16,12 @@ import org.json.JSONObject;
 /**
  * Created by Octavio on 03/12/2016.
  */
-public class ArrivedMessageLoader extends JSONWebServiceLoader<Message> {
+public class AlertMessageLoader extends JSONWebServiceLoader<Message> {
 
     private Bundle mArgs;
     private Context mContext;
 
-    public ArrivedMessageLoader(Context ctx, Bundle args) {
+    public AlertMessageLoader(Context ctx, Bundle args) {
         super(ctx);
 
         this.mContext = ctx;
@@ -41,7 +40,7 @@ public class ArrivedMessageLoader extends JSONWebServiceLoader<Message> {
 
     @Override
     protected String getPath() {
-        return ServiceCatalog.USERS + "/" + AppSettings.getUser().getId() + ServiceCatalog.ARRIVED;
+        return ServiceCatalog.USERS + "/" + AppSettings.getUser().getId() + ServiceCatalog.ALERT;
     }
 
     @Override
