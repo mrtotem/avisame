@@ -3,6 +3,8 @@ package com.totem.avisame.network.loaders;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.totem.avisame.TokenManager;
 import com.totem.avisame.application.AppSettings;
@@ -46,8 +48,12 @@ public class UpdateUserLoader extends JSONWebServiceLoader<User> {
 
         JSONObject data = new JSONObject();
         try {
-            if (TokenManager.getInstance().getToken() != null)
+            if (TokenManager.getInstance().getToken() == null) {
+                TokenManager.getInstance().setToken(FirebaseInstanceId.getInstance().getToken());
                 data.put("pushToken", TokenManager.getInstance().getToken());
+            }else{
+                data.put("pushToken", TokenManager.getInstance().getToken());
+            }
             if (mArgs.getString("firstName") != null)
                 data.put("firstName", mArgs.getString("firstName"));
             if (mArgs.getString("lastName") != null)

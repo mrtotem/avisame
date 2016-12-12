@@ -14,18 +14,17 @@ import com.totem.avisame.utils.DateUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by Octavio on 03/12/2016.
  */
-public class AlertMessageLoader extends JSONWebServiceLoader<Message> {
+public class UpdateAlertMessageLoader extends JSONWebServiceLoader<Message> {
 
     private Bundle mArgs;
     private Context mContext;
 
-    public AlertMessageLoader(Context ctx, Bundle args) {
+    public UpdateAlertMessageLoader(Context ctx, Bundle args) {
         super(ctx);
 
         this.mContext = ctx;
@@ -39,12 +38,12 @@ public class AlertMessageLoader extends JSONWebServiceLoader<Message> {
 
     @Override
     protected HttpOperations getHTTPMethod() {
-        return HttpOperations.POST;
+        return HttpOperations.PUT;
     }
 
     @Override
     protected String getPath() {
-        return ServiceCatalog.USERS + "/" + AppSettings.getUser().getId() + ServiceCatalog.ALERT;
+        return ServiceCatalog.USERS + "/" + AppSettings.getUser().getId() + ServiceCatalog.ALERT + "/" + mArgs.getString("message-id");
     }
 
     @Override
@@ -52,9 +51,10 @@ public class AlertMessageLoader extends JSONWebServiceLoader<Message> {
 
         JSONObject data = new JSONObject();
         try{
-            data.put("email", mArgs.getString("email"));
-            Date date = new Date();
-            data.put("date", DateUtils.formatToString(date));
+            data.put("date", mArgs.getString("date"));
+            data.put("message", mArgs.getString("message"));
+            data.put("lat", mArgs.getString("lat"));
+            data.put("long", mArgs.getString("long"));
         }catch (Exception e){
             e.printStackTrace();
         }

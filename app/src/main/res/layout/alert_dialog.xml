@@ -18,7 +18,7 @@
         android:padding="20dp">
 
         <EditText
-            android:id="@+id/danger_text"
+            android:id="@+id/alert_text"
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:layout_alignParentTop="true"
@@ -34,7 +34,7 @@
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/danger_text"
+            android:layout_below="@id/alert_text"
             android:background="@drawable/alert_button"
             android:text="Enviar!!"
             android:textColor="@android:color/white"/>

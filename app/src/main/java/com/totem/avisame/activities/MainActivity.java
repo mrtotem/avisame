@@ -1,8 +1,10 @@
 package com.totem.avisame.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
@@ -13,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.totem.avisame.R;
+import com.totem.avisame.adapters.MessagesAdapter;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.enums.LoaderIDs;
 import com.totem.avisame.enums.MainTabs;
@@ -29,14 +32,20 @@ import com.totem.avisame.network.loaders.AlertMessageLoader;
 import com.totem.avisame.network.loaders.ArrivedMessageLoader;
 import com.totem.avisame.network.loaders.DangerMessageLoader;
 import com.totem.avisame.network.loaders.SignInLoader;
+import com.totem.avisame.network.loaders.UpdateAlertMessageLoader;
 import com.totem.avisame.network.loaders.UpdateUserLoader;
 import com.totem.avisame.widgets.CustomTabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements
         MainFragment.MainFragmentActions,
         LoadingViewController,
-        ProfileFragment.ProfileActions {
+        ProfileFragment.ProfileActions,
+        SendAlertDialogFragment.SendAlertActions,
+        MessagesAdapter.MessageActions {
 
     private CustomTabLayout mTabLayout;
     private MainTabs mMainTabSelected = MainTabs.HOME;
@@ -46,6 +55,8 @@ public class MainActivity extends AppCompatActivity
             MainTabs.MESSAGES,
             MainTabs.PROFILE
     };
+
+    private List<Message> mAlertList;
 
     private LoaderManager.LoaderCallbacks<LoaderResponse<Message>> mArrivedCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<Message>>() {
         @Override
@@ -86,10 +97,41 @@ public class MainActivity extends AppCompatActivity
             } else {
 
                 Snackbar.make(findViewById(android.R.id.content), ":/", Snackbar.LENGTH_LONG).show();
+                Fragment frag = getSupportFragmentManager().findFragmentByTag("SEND-ALERT-DIALOG");
+                if (frag instanceof SendAlertDialogFragment) {
+                    ((SendAlertDialogFragment) frag).setmAlert(data.getResponse());
+                }
             }
 
             hideLoadingView();
             getSupportLoaderManager().destroyLoader(LoaderIDs.POST_ALERT.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<Message>> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<Message>> mUpdateAlertCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<Message>>() {
+        @Override
+        public Loader<LoaderResponse<Message>> onCreateLoader(int id, Bundle args) {
+            return new UpdateAlertMessageLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
+
+            if (data.getError() != null) {
+
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_LONG).show();
+            } else {
+
+                Snackbar.make(findViewById(android.R.id.content), "Mensaje enviado!", Snackbar.LENGTH_LONG).show();
+                mAlertList.add(data.getResponse());
+            }
+
+            hideLoadingView();
+            getSupportLoaderManager().destroyLoader(LoaderIDs.PUT_ALERT.getId());
         }
 
         @Override
@@ -171,6 +213,13 @@ public class MainActivity extends AppCompatActivity
         });
 
         setUpBottomTabBar();
+
+        initMessages();
+    }
+
+    private void initMessages() {
+
+        mAlertList = new ArrayList<>();
     }
 
     private void setUpBottomTabBar() {
@@ -225,7 +274,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case MESSAGES: {
-                transaction.replace(R.id.container, MessagesFragment.newInstance());
+                ArrayList<Message> alerts = new ArrayList<>();
+                alerts.addAll(mAlertList);
+                transaction.replace(R.id.container, MessagesFragment.newInstance(alerts));
                 break;
             }
             case PROFILE: {
@@ -292,5 +343,17 @@ public class MainActivity extends AppCompatActivity
 
     public void enableSwipeToRefresh() {
         mSwipeRefreshLayout.setEnabled(true);
+    }
+
+    @Override
+    public void onMessageAlertSended(Bundle bundle) {
+
+        showLoadingView();
+        getSupportLoaderManager().restartLoader(LoaderIDs.PUT_ALERT.getId(), bundle, mUpdateAlertCallback);
+    }
+
+    @Override
+    public void onLocationShow(Intent mapIntent) {
+        startActivity(mapIntent);
     }
 }

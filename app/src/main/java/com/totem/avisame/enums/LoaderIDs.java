@@ -7,7 +7,9 @@ public enum LoaderIDs {
     PUT_UPDATE_USER(2),
     POST_REGISTER(3),
     POST_ALERT(4),
-    POST_DANGER(5);
+    POST_DANGER(5),
+    PUT_ALERT(6),
+    PUT_DANGER(7);
 
     private final int id;
 
