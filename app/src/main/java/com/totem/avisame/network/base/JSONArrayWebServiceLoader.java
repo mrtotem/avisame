@@ -45,7 +45,7 @@ public abstract class JSONArrayWebServiceLoader<T> extends JSONWebServiceLoader<
 
                 try {
                     params.put("Content-Type", "application/json");
-//                    params.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getUser().getToken());
+                    params.put("Authorization", ServiceCatalog.TOKEN_KEY + AppSettings.getTokenValue());
                 } catch (Exception e) {
                     Log.e("HEADERS ERRORS:", e.getLocalizedMessage());
                 }

@@ -25,12 +25,14 @@ import com.totem.avisame.fragments.ProfileFragment;
 import com.totem.avisame.fragments.dialogs.SendAlertDialogFragment;
 import com.totem.avisame.fragments.dialogs.SendDangerDialogFragment;
 import com.totem.avisame.interfaces.LoadingViewController;
+import com.totem.avisame.models.AlertResponse;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.models.User;
 import com.totem.avisame.network.base.LoaderResponse;
 import com.totem.avisame.network.loaders.AlertMessageLoader;
 import com.totem.avisame.network.loaders.ArrivedMessageLoader;
 import com.totem.avisame.network.loaders.DangerMessageLoader;
+import com.totem.avisame.network.loaders.GetAlertMessagesLoader;
 import com.totem.avisame.network.loaders.SignInLoader;
 import com.totem.avisame.network.loaders.UpdateAlertMessageLoader;
 import com.totem.avisame.network.loaders.UpdateUserLoader;
@@ -190,6 +192,31 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onLoaderReset(Loader<LoaderResponse<User>> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<AlertResponse>> mGetAlertsCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<AlertResponse>>() {
+        @Override
+        public Loader<LoaderResponse<AlertResponse>> onCreateLoader(int id, Bundle args) {
+            return new GetAlertMessagesLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<AlertResponse>> loader, LoaderResponse<AlertResponse> data) {
+
+            if (data.getError() != null) {
+
+            } else {
+
+
+            }
+
+            hideLoadingView();
+            getSupportLoaderManager().destroyLoader(LoaderIDs.GET_ALERTS.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<AlertResponse>> loader) {
 
         }
     };
