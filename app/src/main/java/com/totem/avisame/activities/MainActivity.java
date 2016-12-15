@@ -26,6 +26,7 @@ import com.totem.avisame.fragments.dialogs.SendAlertDialogFragment;
 import com.totem.avisame.fragments.dialogs.SendDangerDialogFragment;
 import com.totem.avisame.interfaces.LoadingViewController;
 import com.totem.avisame.models.AlertResponse;
+import com.totem.avisame.models.DangerResponse;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.models.User;
 import com.totem.avisame.network.base.LoaderResponse;
@@ -33,8 +34,10 @@ import com.totem.avisame.network.loaders.AlertMessageLoader;
 import com.totem.avisame.network.loaders.ArrivedMessageLoader;
 import com.totem.avisame.network.loaders.DangerMessageLoader;
 import com.totem.avisame.network.loaders.GetAlertMessagesLoader;
+import com.totem.avisame.network.loaders.GetDangerMessagesLoader;
 import com.totem.avisame.network.loaders.SignInLoader;
 import com.totem.avisame.network.loaders.UpdateAlertMessageLoader;
+import com.totem.avisame.network.loaders.UpdateDangerMessageLoader;
 import com.totem.avisame.network.loaders.UpdateUserLoader;
 import com.totem.avisame.widgets.CustomTabLayout;
 
@@ -47,7 +50,9 @@ public class MainActivity extends AppCompatActivity
         LoadingViewController,
         ProfileFragment.ProfileActions,
         SendAlertDialogFragment.SendAlertActions,
-        MessagesAdapter.MessageActions {
+        MessagesAdapter.MessageActions,
+        MessagesFragment.MessagesActions,
+        SendDangerDialogFragment.SendDangerActions {
 
     private CustomTabLayout mTabLayout;
     private MainTabs mMainTabSelected = MainTabs.HOME;
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity
             MainTabs.PROFILE
     };
 
-    private List<Message> mAlertList;
+    private List<Message> allMessages;
 
     private LoaderManager.LoaderCallbacks<LoaderResponse<Message>> mArrivedCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<Message>>() {
         @Override
@@ -70,10 +75,10 @@ public class MainActivity extends AppCompatActivity
         public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
 
             if (data.getError() != null) {
-
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-                Snackbar.make(findViewById(android.R.id.content), "Buenísimo :)", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), "Buenísimo :)", Snackbar.LENGTH_SHORT).show();
             }
 
             hideLoadingView();
@@ -95,10 +100,10 @@ public class MainActivity extends AppCompatActivity
         public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
 
             if (data.getError() != null) {
-
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-                Snackbar.make(findViewById(android.R.id.content), ":/", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), ":/", Snackbar.LENGTH_SHORT).show();
                 Fragment frag = getSupportFragmentManager().findFragmentByTag("SEND-ALERT-DIALOG");
                 if (frag instanceof SendAlertDialogFragment) {
                     ((SendAlertDialogFragment) frag).setmAlert(data.getResponse());
@@ -125,11 +130,10 @@ public class MainActivity extends AppCompatActivity
 
             if (data.getError() != null) {
 
-                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-                Snackbar.make(findViewById(android.R.id.content), "Mensaje enviado!", Snackbar.LENGTH_LONG).show();
-                mAlertList.add(data.getResponse());
+                Snackbar.make(findViewById(android.R.id.content), "Mensaje enviado!", Snackbar.LENGTH_SHORT).show();
             }
 
             hideLoadingView();
@@ -151,14 +155,45 @@ public class MainActivity extends AppCompatActivity
         public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
 
             if (data.getError() != null) {
-
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-                Snackbar.make(findViewById(android.R.id.content), ":/ :/", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), ":/ :/", Snackbar.LENGTH_SHORT).show();
+
+                Fragment frag = getSupportFragmentManager().findFragmentByTag("SEND-DANGER-DIALOG");
+                if (frag instanceof SendDangerDialogFragment) {
+                    ((SendDangerDialogFragment) frag).setDanger(data.getResponse());
+                }
             }
 
             hideLoadingView();
             getSupportLoaderManager().destroyLoader(LoaderIDs.POST_DANGER.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<Message>> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<Message>> mUpdateDangerCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<Message>>() {
+        @Override
+        public Loader<LoaderResponse<Message>> onCreateLoader(int id, Bundle args) {
+            return new UpdateDangerMessageLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<Message>> loader, LoaderResponse<Message> data) {
+
+            if (data.getError() != null) {
+
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
+            } else {
+
+                Snackbar.make(findViewById(android.R.id.content), "Mensaje enviado!", Snackbar.LENGTH_SHORT).show();
+            }
+
+            hideLoadingView();
+            getSupportLoaderManager().destroyLoader(LoaderIDs.PUT_DANGER.getId());
         }
 
         @Override
@@ -176,14 +211,14 @@ public class MainActivity extends AppCompatActivity
         public void onLoadFinished(Loader<LoaderResponse<User>> loader, LoaderResponse<User> data) {
 
             if (data.getError() != null) {
-
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
                 User temp = data.getResponse();
                 temp.setFriends(AppSettings.getUser().getFriends());
                 AppSettings.setUserData(temp);
 
-                Snackbar.make(findViewById(android.R.id.content), "Perfil guardado :)", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), "Perfil guardado :)", Snackbar.LENGTH_SHORT).show();
             }
 
             hideLoadingView();
@@ -205,18 +240,51 @@ public class MainActivity extends AppCompatActivity
         public void onLoadFinished(Loader<LoaderResponse<AlertResponse>> loader, LoaderResponse<AlertResponse> data) {
 
             if (data.getError() != null) {
-
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-
+                allMessages = data.getResponse().getAlerts();
+                Bundle bundle = new Bundle();
+                bundle.putString("email", AppSettings.getUser().getFriends().get(0));
+                getSupportLoaderManager().restartLoader(LoaderIDs.GET_DANGERS.getId(), bundle, mGetDangersCallback);
             }
 
-            hideLoadingView();
             getSupportLoaderManager().destroyLoader(LoaderIDs.GET_ALERTS.getId());
         }
 
         @Override
         public void onLoaderReset(Loader<LoaderResponse<AlertResponse>> loader) {
+
+        }
+    };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<DangerResponse>> mGetDangersCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<DangerResponse>>() {
+        @Override
+        public Loader<LoaderResponse<DangerResponse>> onCreateLoader(int id, Bundle args) {
+            return new GetDangerMessagesLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<DangerResponse>> loader, LoaderResponse<DangerResponse> data) {
+
+            if (data.getError() != null) {
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
+            } else {
+
+                allMessages.addAll(data.getResponse().getDangers());
+                Fragment frag = getSupportFragmentManager().findFragmentById(R.id.container);
+                if (frag instanceof MessagesFragment) {
+
+                    ((MessagesFragment) frag).setAdapter(allMessages);
+                }
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+            hideLoadingView();
+            getSupportLoaderManager().destroyLoader(LoaderIDs.GET_DANGERS.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<DangerResponse>> loader) {
 
         }
     };
@@ -234,19 +302,19 @@ public class MainActivity extends AppCompatActivity
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mSwipeRefreshLayout.setRefreshing(false);
 
+                if (haveFriends()) {
+                    mSwipeRefreshLayout.setRefreshing(true);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("email", AppSettings.getUser().getFriends().get(0));
+
+                    getSupportLoaderManager().restartLoader(LoaderIDs.GET_ALERTS.getId(), bundle, mGetAlertsCallback);
+                }
             }
         });
 
         setUpBottomTabBar();
-
-        initMessages();
-    }
-
-    private void initMessages() {
-
-        mAlertList = new ArrayList<>();
     }
 
     private void setUpBottomTabBar() {
@@ -301,9 +369,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case MESSAGES: {
-                ArrayList<Message> alerts = new ArrayList<>();
-                alerts.addAll(mAlertList);
-                transaction.replace(R.id.container, MessagesFragment.newInstance(alerts));
+                transaction.replace(R.id.container, MessagesFragment.newInstance());
                 break;
             }
             case PROFILE: {
@@ -382,5 +448,34 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLocationShow(Intent mapIntent) {
         startActivity(mapIntent);
+    }
+
+    @Override
+    public void getAlertMessages() {
+
+        if (haveFriends()) {
+
+            Bundle bundle = new Bundle();
+            bundle.putString("email", AppSettings.getUser().getFriends().get(0));
+
+            showLoadingView();
+            getSupportLoaderManager().restartLoader(LoaderIDs.GET_ALERTS.getId(), bundle, mGetAlertsCallback);
+        }
+    }
+
+    private boolean haveFriends() {
+
+        if (AppSettings.getUser().getFriends() != null) {
+            return true;
+        }
+        Snackbar.make(findViewById(android.R.id.content), "Primero agregá un amigo en la sección perfil :)", Snackbar.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public void onMessageDangerSended(Bundle bundle) {
+
+        showLoadingView();
+        getSupportLoaderManager().restartLoader(LoaderIDs.PUT_DANGER.getId(), bundle, mUpdateDangerCallback);
     }
 }

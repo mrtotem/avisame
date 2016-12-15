@@ -1,6 +1,7 @@
 package com.totem.avisame.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.totem.avisame.R;
 import com.totem.avisame.activities.MainActivity;
 import com.totem.avisame.adapters.MessagesAdapter;
+import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.Message;
+import com.totem.avisame.utils.AppUtils;
+import com.totem.avisame.utils.DateUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,17 +34,15 @@ import java.util.List;
 public class MessagesFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private List<Message> mAlerts;
+    private MessagesActions mListener;
 
     public MessagesFragment() {
         // Required empty public constructor
     }
 
-    public static MessagesFragment newInstance(ArrayList<Message> alerts) {
+    public static MessagesFragment newInstance() {
 
         Bundle args = new Bundle();
-
-        args.putSerializable("alerts", alerts);
 
         MessagesFragment fragment = new MessagesFragment();
         fragment.setArguments(args);
@@ -42,11 +50,12 @@ public class MessagesFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mAlerts = (List<Message>) getArguments().getSerializable("alerts");
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            mListener = (MainActivity) getActivity();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -66,7 +75,7 @@ public class MessagesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setAdapter(mAlerts);
+        mListener.getAlertMessages();
     }
 
     private void setRecyclerView() {
@@ -76,8 +85,9 @@ public class MessagesFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
     }
 
-    private void setAdapter(List<Message> messages) {
+    public void setAdapter(List<Message> messages) {
 
+//        Collections.sort(messages);
         mRecyclerView.setAdapter(new MessagesAdapter(getActivity(), messages));
     }
 
@@ -85,5 +95,10 @@ public class MessagesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).enableSwipeToRefresh();
+    }
+
+    public interface MessagesActions{
+
+        void getAlertMessages();
     }
 }

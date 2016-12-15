@@ -17,44 +17,59 @@ import java.util.List;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
 
-    private List<Message> mAlerts;
+    private List<Message> mMessages;
     private Context mContext;
 
     public MessagesAdapter(Context _context, List<Message> messages) {
         this.mContext = _context;
-        this.mAlerts = messages;
+        this.mMessages = messages;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.cell_message, parent, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.adapter_message, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final Message temp = mAlerts.get(position);
+        final Message temp = mMessages.get(position);
 
         holder.mDate.setText(temp.getDate());
         holder.mMessage.setText(temp.getMessage());
-        holder.mLinkToMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (temp.getLatitude() != null && temp.getLongitude() != null) {
-                    String location = "geo:" + temp.getLatitude() + "," + temp.getLongitude();
-                    Uri gmmIntentUri = Uri.parse(location);
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
-                    ((MainActivity)mContext).onLocationShow(mapIntent);
+        if (temp.getLatitude() != null && temp.getLongitude() != null){
+            holder.mLinkToMap.setVisibility(View.VISIBLE);
+            holder.mLinkToMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (temp.getLatitude() != null && temp.getLongitude() != null) {
+                        String location = "geo:" + temp.getLatitude() + "," + temp.getLongitude();
+                        Uri gmmIntentUri = Uri.parse(location);
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        ((MainActivity) mContext).onLocationShow(mapIntent);
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            holder.mLinkToMap.setVisibility(View.GONE);
+        }
+
+        if (temp.getType().equals(String.valueOf(1))) {
+
+            holder.mType.setText("ALERTA");
+            holder.mType.setTextColor(mContext.getResources().getColor(android.R.color.holo_orange_dark));
+        } else if (temp.getType().equals(String.valueOf(2))) {
+
+            holder.mType.setText("PELIGRO");
+            holder.mType.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_dark));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mAlerts.size();
+        return mMessages.size();
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,16 +77,18 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         private TextView mMessage;
         private TextView mLinkToMap;
         private TextView mDate;
+        private TextView mType;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mDate = (TextView) itemView.findViewById(R.id.message_date);
             mMessage = (TextView) itemView.findViewById(R.id.message);
             mLinkToMap = (TextView) itemView.findViewById(R.id.link_map);
+            mType = (TextView) itemView.findViewById(R.id.message_type);
         }
     }
 
-    public interface MessageActions{
+    public interface MessageActions {
 
         void onLocationShow(Intent mapIntent);
     }

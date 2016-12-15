@@ -17,13 +17,26 @@
 
             <TextView
                 android:id="@+id/message_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="2"
+                android:hint="Fecha.."
                 android:maxWidth="300dp"
                 android:singleLine="true"
-                android:hint="Fecha.."
-                android:layout_marginRight="10dp"
                 android:textColor="@color/titleTextView"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/message_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:hint="Type"
+                android:maxWidth="300dp"
+                android:singleLine="true"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -37,20 +50,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textSize="15sp"
                 android:gravity="start"
+                android:hint="@string/mensaje"
                 android:singleLine="true"
                 android:textColor="@color/titleTextView"
-                android:hint="Mensaje.."/>
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/link_map"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Ir al mapa"
                 android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/ir_al_mapa"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
         </LinearLayout>

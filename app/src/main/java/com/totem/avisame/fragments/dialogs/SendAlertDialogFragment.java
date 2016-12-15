@@ -43,7 +43,7 @@ public class SendAlertDialogFragment extends BaseDialogFragment {
         try {
             mListener = (MainActivity) getActivity();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
