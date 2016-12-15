@@ -34,7 +34,7 @@ public class AppSettings {
         sContext.getSharedPreferences(KeysSetting.AVISAME_SETTINGS.name(), Context.MODE_PRIVATE)
                 .edit()
                 .clear()
-                .commit();
+                .apply();
     }
 
 

@@ -26,7 +26,7 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
 
     private ProfileActions mListener;
-    private TextView mEmail;
+    private TextView mEmail, mLogout;
     private EditText mFirstname, mLastname, mFriends;
     private Button mSave;
 
@@ -63,6 +63,7 @@ public class ProfileFragment extends Fragment {
         mFirstname = (EditText) v.findViewById(R.id.first_name);
         mLastname = (EditText) v.findViewById(R.id.last_name);
         mFriends = (EditText) v.findViewById(R.id.friends_input);
+        mLogout = (TextView) v.findViewById(R.id.logout_button);
         mSave = (Button) v.findViewById(R.id.save_button);
 
         return v;
@@ -125,6 +126,12 @@ public class ProfileFragment extends Fragment {
                 mListener.getUserProfile(args);
             }
         });
+
+        mLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { mListener.onUserLogOut();
+            }
+        });
     }
 
     private void setFields() {
@@ -150,5 +157,7 @@ public class ProfileFragment extends Fragment {
     public interface ProfileActions {
 
         void getUserProfile(Bundle bundle);
+
+        void onUserLogOut();
     }
 }

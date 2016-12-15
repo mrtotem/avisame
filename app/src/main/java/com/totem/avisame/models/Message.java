@@ -30,8 +30,6 @@ public class Message implements Serializable, Comparable<Message> {
     @SerializedName("type")
     private String type;
 
-    private Date formatDate;
-
     public Message(String id, String userId, String message, String date, String latitude, String longitude, String type) {
         this.id = id;
         this.userId = userId;
@@ -70,17 +68,11 @@ public class Message implements Serializable, Comparable<Message> {
         return type;
     }
 
-    public Date getFormatDate() {
-        return formatDate;
-    }
-
-    public void setFormatDate(String formatDate) {
-        this.formatDate = DateUtils.formatToDate(formatDate);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public int compareTo(@NonNull Message message) {
-        return Long.compare(this.formatDate.getTime(), message.formatDate.getTime());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return Long.compare(DateUtils.formatToDate(message.getDate()).getTime(), DateUtils.formatToDate(this.date).getTime());
+        }
+        return 0;
     }
 }

@@ -87,7 +87,7 @@ public class MessagesFragment extends Fragment {
 
     public void setAdapter(List<Message> messages) {
 
-//        Collections.sort(messages);
+        Collections.sort(messages);
         mRecyclerView.setAdapter(new MessagesAdapter(getActivity(), messages));
     }
 

@@ -39,6 +39,7 @@ import com.totem.avisame.network.loaders.SignInLoader;
 import com.totem.avisame.network.loaders.UpdateAlertMessageLoader;
 import com.totem.avisame.network.loaders.UpdateDangerMessageLoader;
 import com.totem.avisame.network.loaders.UpdateUserLoader;
+import com.totem.avisame.utils.AnimUtils;
 import com.totem.avisame.widgets.CustomTabLayout;
 
 import java.util.ArrayList;
@@ -428,6 +429,15 @@ public class MainActivity extends AppCompatActivity
 
         showLoadingView();
         getSupportLoaderManager().restartLoader(LoaderIDs.PUT_UPDATE_USER.getId(), bundle, mUpdateUserCallback);
+    }
+
+    @Override
+    public void onUserLogOut() {
+
+        AppSettings.cleanSettings();
+        startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+        AnimUtils.rightInLeftOut(MainActivity.this);
+        finish();
     }
 
     public void disableSwipeToRefresh() {
