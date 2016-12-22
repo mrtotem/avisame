@@ -19,6 +19,8 @@ public class Message implements Serializable, Comparable<Message> {
     private String id;
     @SerializedName("userId")
     private String userId;
+    @SerializedName("name")
+    private String name;
     @SerializedName("message")
     private String message;
     @SerializedName("date")
@@ -30,9 +32,10 @@ public class Message implements Serializable, Comparable<Message> {
     @SerializedName("type")
     private String type;
 
-    public Message(String id, String userId, String message, String date, String latitude, String longitude, String type) {
+    public Message(String id, String userId, String name, String message, String date, String latitude, String longitude, String type) {
         this.id = id;
         this.userId = userId;
+        this.name = name;
         this.message = message;
         this.date = date;
         this.latitude = latitude;
@@ -46,6 +49,10 @@ public class Message implements Serializable, Comparable<Message> {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getMessage() {

@@ -15,6 +15,7 @@ android {
         debug {
             minifyEnabled false
             buildConfigField "String", "BASE_API_URL", '"https://pacific-atoll-58771.herokuapp.com/"'
+//            buildConfigField "String", "BASE_API_URL", '"https://192.168.88.41:3000/"'
         }
         release {
             minifyEnabled false

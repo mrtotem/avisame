@@ -141,30 +141,35 @@ public abstract class BaseWebServiceLoader<T> extends Loader<LoaderResponse<T>> 
 
     protected abstract String getPath();
 
-    protected Response.ErrorListener getErrorListener() {
+    Response.ErrorListener getErrorListener() {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String data;
                 NetworkResponse response = error.networkResponse;
-                switch (response.statusCode) {
-                    case 401:
-                        onInvalidToken();
-                        break;
-                    case 403:
-                        onInvalidToken();
-                        break;
-                    case 503:
-                        deliverResult(wrapError(new Error("Connection Error")));
-                        break;
-                    case 500:
-                        deliverResult(wrapError(new Error("Connection Error")));
-                        break;
-                    default:
-                        data = new String(response.data);
-                        data = trimMessage(data, "message");
-                        deliverResult(wrapError(new Error(data)));
-                        break;
+                if (response != null) {
+
+                    switch (response.statusCode) {
+                        case 401:
+                            onInvalidToken();
+                            break;
+                        case 403:
+                            onInvalidToken();
+                            break;
+                        case 503:
+                            deliverResult(wrapError(new Error("Error del servidor")));
+                            break;
+                        case 500:
+                            deliverResult(wrapError(new Error("Error del servidor")));
+                            break;
+                        default:
+                            data = new String(response.data);
+                            data = trimMessage(data, "message");
+                            deliverResult(wrapError(new Error(data)));
+                            break;
+                    }
+                } else {
+                    deliverResult(wrapError(new Error("Error desconocido")));
                 }
             }
         };

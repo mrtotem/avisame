@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-                Snackbar.make(findViewById(android.R.id.content), ":/", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), "Se envió tu mensaje con éxito", Snackbar.LENGTH_SHORT).show();
                 Fragment frag = getSupportFragmentManager().findFragmentByTag("SEND-ALERT-DIALOG");
                 if (frag instanceof SendAlertDialogFragment) {
                     ((SendAlertDialogFragment) frag).setmAlert(data.getResponse());
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-                Snackbar.make(findViewById(android.R.id.content), ":/ :/", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), "Se envió tu mensaje con éxito", Snackbar.LENGTH_SHORT).show();
 
                 Fragment frag = getSupportFragmentManager().findFragmentByTag("SEND-DANGER-DIALOG");
                 if (frag instanceof SendDangerDialogFragment) {

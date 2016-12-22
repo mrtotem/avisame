@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
-import com.totem.avisame.TokenManager;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.network.ServiceCatalog;
