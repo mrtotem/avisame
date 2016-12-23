@@ -36,9 +36,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
         final Message temp = mMessages.get(position);
 
-        holder.mDate.setText(temp.getDate());
-        holder.mMessage.setText(temp.getMessage());
+        if (temp.getDate() != null) holder.mDate.setText(temp.getDate());
+        if (temp.getMessage() != null) holder.mMessage.setText(temp.getMessage());
         if (temp.getLatitude() != null && temp.getLongitude() != null) {
+
             holder.mLinkToMap.setVisibility(View.VISIBLE);
             holder.mLinkToMap.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,6 +67,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
             holder.mType.setText("PELIGRO");
             holder.mType.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_dark));
+        } else if (temp.getType().equals(String.valueOf(3))) {
+
+            holder.mType.setText("LLEGADA");
+            holder.mType.setTextColor(mContext.getResources().getColor(android.R.color.holo_green_dark));
         }
     }
 
@@ -74,14 +79,14 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         return mMessages.size();
     }
 
-    protected class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mMessage;
         private TextView mLinkToMap;
         private TextView mDate;
         private TextView mType;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             mDate = (TextView) itemView.findViewById(R.id.message_date);
             mMessage = (TextView) itemView.findViewById(R.id.message);

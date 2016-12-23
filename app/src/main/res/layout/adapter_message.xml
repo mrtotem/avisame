@@ -19,13 +19,14 @@
                 android:id="@+id/message_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="2"
                 android:hint="Fecha.."
                 android:maxWidth="300dp"
                 android:singleLine="true"
                 android:textColor="@color/titleTextView"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/message_type"
@@ -37,7 +38,7 @@
                 android:hint="Type"
                 android:maxWidth="300dp"
                 android:singleLine="true"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,12 +50,13 @@
                 android:id="@+id/message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="3"
                 android:gravity="start"
                 android:hint="@string/mensaje"
                 android:singleLine="true"
                 android:textColor="@color/titleTextView"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/link_map"

@@ -37,7 +37,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:background="@drawable/alert_button"
-                android:text="Taxi tomó otro rumbo :/" />
+                android:text="Alerta!!" />
         </RelativeLayout>
 
         <RelativeLayout

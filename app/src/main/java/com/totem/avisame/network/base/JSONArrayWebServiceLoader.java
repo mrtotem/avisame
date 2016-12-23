@@ -28,6 +28,7 @@ public abstract class JSONArrayWebServiceLoader<T> extends JSONWebServiceLoader<
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.v("Response: ", response.toString());
                         deliverResult(wrapResponse(processResponse(response)));
                     }
                 },

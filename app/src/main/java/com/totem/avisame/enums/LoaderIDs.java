@@ -11,7 +11,8 @@ public enum LoaderIDs {
     PUT_ALERT(6),
     PUT_DANGER(7),
     GET_ALERTS(8),
-    GET_DANGERS(9);
+    GET_DANGERS(9),
+    GET_ARRIVALS(10);
 
     private final int id;
 

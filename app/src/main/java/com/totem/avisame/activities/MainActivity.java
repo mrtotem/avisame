@@ -26,6 +26,7 @@ import com.totem.avisame.fragments.dialogs.SendAlertDialogFragment;
 import com.totem.avisame.fragments.dialogs.SendDangerDialogFragment;
 import com.totem.avisame.interfaces.LoadingViewController;
 import com.totem.avisame.models.AlertResponse;
+import com.totem.avisame.models.ArrivalsResponse;
 import com.totem.avisame.models.DangerResponse;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.models.User;
@@ -33,8 +34,9 @@ import com.totem.avisame.network.base.LoaderResponse;
 import com.totem.avisame.network.loaders.AlertMessageLoader;
 import com.totem.avisame.network.loaders.ArrivedMessageLoader;
 import com.totem.avisame.network.loaders.DangerMessageLoader;
-import com.totem.avisame.network.loaders.GetAlertMessagesLoader;
-import com.totem.avisame.network.loaders.GetDangerMessagesLoader;
+import com.totem.avisame.network.loaders.AlertMessagesListLoader;
+import com.totem.avisame.network.loaders.ArrivalsMessagesListLoader;
+import com.totem.avisame.network.loaders.DangerMessagesListLoader;
 import com.totem.avisame.network.loaders.UpdateAlertMessageLoader;
 import com.totem.avisame.network.loaders.UpdateDangerMessageLoader;
 import com.totem.avisame.network.loaders.UpdateUserLoader;
@@ -229,20 +231,49 @@ public class MainActivity extends AppCompatActivity
 
         }
     };
+    private LoaderManager.LoaderCallbacks<LoaderResponse<ArrivalsResponse>> mGetArrivalsCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<ArrivalsResponse>>() {
+        @Override
+        public Loader<LoaderResponse<ArrivalsResponse>> onCreateLoader(int id, Bundle args) {
+            return new ArrivalsMessagesListLoader(MainActivity.this, args);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<LoaderResponse<ArrivalsResponse>> loader, LoaderResponse<ArrivalsResponse> data) {
+
+            if (data.getError() != null) {
+                hideLoadingView();
+                Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
+            } else {
+
+                allMessages = data.getResponse().getArrivals();
+                Bundle bundle = new Bundle();
+                bundle.putString("email", AppSettings.getUser().getFriends().get(0));
+                getSupportLoaderManager().restartLoader(LoaderIDs.GET_ALERTS.getId(), bundle, mGetAlertsCallback);
+            }
+
+            getSupportLoaderManager().destroyLoader(LoaderIDs.GET_ARRIVALS.getId());
+        }
+
+        @Override
+        public void onLoaderReset(Loader<LoaderResponse<ArrivalsResponse>> loader) {
+
+        }
+    };
     private LoaderManager.LoaderCallbacks<LoaderResponse<AlertResponse>> mGetAlertsCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<AlertResponse>>() {
         @Override
         public Loader<LoaderResponse<AlertResponse>> onCreateLoader(int id, Bundle args) {
-            return new GetAlertMessagesLoader(MainActivity.this, args);
+            return new AlertMessagesListLoader(MainActivity.this, args);
         }
 
         @Override
         public void onLoadFinished(Loader<LoaderResponse<AlertResponse>> loader, LoaderResponse<AlertResponse> data) {
 
             if (data.getError() != null) {
+                hideLoadingView();
                 Snackbar.make(findViewById(android.R.id.content), "Ocurrió un error :/", Snackbar.LENGTH_SHORT).show();
             } else {
 
-                allMessages = data.getResponse().getAlerts();
+                allMessages.addAll(data.getResponse().getAlerts());
                 Bundle bundle = new Bundle();
                 bundle.putString("email", AppSettings.getUser().getFriends().get(0));
                 getSupportLoaderManager().restartLoader(LoaderIDs.GET_DANGERS.getId(), bundle, mGetDangersCallback);
@@ -259,7 +290,7 @@ public class MainActivity extends AppCompatActivity
     private LoaderManager.LoaderCallbacks<LoaderResponse<DangerResponse>> mGetDangersCallback = new LoaderManager.LoaderCallbacks<LoaderResponse<DangerResponse>>() {
         @Override
         public Loader<LoaderResponse<DangerResponse>> onCreateLoader(int id, Bundle args) {
-            return new GetDangerMessagesLoader(MainActivity.this, args);
+            return new DangerMessagesListLoader(MainActivity.this, args);
         }
 
         @Override
@@ -308,7 +339,7 @@ public class MainActivity extends AppCompatActivity
                     Bundle bundle = new Bundle();
                     bundle.putString("email", AppSettings.getUser().getFriends().get(0));
 
-                    getSupportLoaderManager().restartLoader(LoaderIDs.GET_ALERTS.getId(), bundle, mGetAlertsCallback);
+                    getSupportLoaderManager().restartLoader(LoaderIDs.GET_ARRIVALS.getId(), bundle, mGetArrivalsCallback);
                 }
             }
         });
@@ -459,7 +490,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void getAlertMessages() {
+    public void getArrivalsMessages() {
 
         if (haveFriends()) {
 
@@ -467,7 +498,7 @@ public class MainActivity extends AppCompatActivity
             bundle.putString("email", AppSettings.getUser().getFriends().get(0));
 
             showLoadingView();
-            getSupportLoaderManager().restartLoader(LoaderIDs.GET_ALERTS.getId(), bundle, mGetAlertsCallback);
+            getSupportLoaderManager().restartLoader(LoaderIDs.GET_ARRIVALS.getId(), bundle, mGetArrivalsCallback);
         }
     }
 

@@ -66,7 +66,7 @@ public class MessagesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mListener.getAlertMessages();
+        mListener.getArrivalsMessages();
     }
 
     private void setRecyclerView() {
@@ -90,6 +90,6 @@ public class MessagesFragment extends Fragment {
 
     public interface MessagesActions {
 
-        void getAlertMessages();
+        void getArrivalsMessages();
     }
 }

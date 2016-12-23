@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.totem.avisame.models.AlertResponse;
+import com.totem.avisame.models.DangerResponse;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.network.ServiceCatalog;
 import com.totem.avisame.network.base.HttpOperations;
@@ -20,30 +21,30 @@ import java.util.List;
  * Created by Octavio on 14/12/2016.
  */
 
-public class GetAlertMessagesLoader extends JSONArrayWebServiceLoader<AlertResponse> {
+public class DangerMessagesListLoader extends JSONArrayWebServiceLoader<DangerResponse> {
 
     private Bundle mArgs;
     private Context mContext;
 
-    public GetAlertMessagesLoader(Context ctx, Bundle bundle) {
+    public DangerMessagesListLoader(Context ctx, Bundle bundle) {
         super(ctx);
 
         this.mArgs = bundle;
     }
 
     @Override
-    protected AlertResponse processResponse(JSONArray response) {
-        List<Message> alerts = new ArrayList<>();
+    protected DangerResponse processResponse(JSONArray response) {
+        List<Message> dangers = new ArrayList<>();
 
         for (int i = 0; i < response.length(); i++) {
             try {
-                alerts.add(new Gson().fromJson(response.get(i).toString(), Message.class));
+                dangers.add(new Gson().fromJson(response.get(i).toString(), Message.class));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-        return new AlertResponse(alerts);
+        return new DangerResponse(dangers);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class GetAlertMessagesLoader extends JSONArrayWebServiceLoader<AlertRespo
 
     @Override
     protected String getPath() {
-        return ServiceCatalog.ALERT + "/" + mArgs.getString("email");
+        return ServiceCatalog.DANGER + "/" + mArgs.getString("email");
     }
 
     @Override

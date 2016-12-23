@@ -1,7 +1,5 @@
 package com.totem.avisame.utils;
 
-import com.totem.avisame.models.DangerResponse;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,7 +7,7 @@ public class DateUtils {
 
     public static String formatToString(Date date) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm aa");
         String format = null;
 
         try {
@@ -22,7 +20,7 @@ public class DateUtils {
 
     public static Date formatToDate(String value) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm aa");
         Date date = null;
 
         try {
