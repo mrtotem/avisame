@@ -71,6 +71,7 @@ public class RegisterActivity extends BaseActivity
 
             if (data.getError() != null) {
 
+                Snackbar.make(findViewById(android.R.id.content), data.getError().getMessage(), Snackbar.LENGTH_LONG).show();
             } else {
 
                 AppSettings.setUserData(data.getResponse());
@@ -104,6 +105,7 @@ public class RegisterActivity extends BaseActivity
 
             if (data.getError() != null) {
 
+                Snackbar.make(findViewById(android.R.id.content), data.getError().getMessage(), Snackbar.LENGTH_LONG).show();
                 hideLoadingView();
             } else {
 

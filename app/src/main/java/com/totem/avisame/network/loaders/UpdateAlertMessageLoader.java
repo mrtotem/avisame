@@ -1,9 +1,11 @@
 package com.totem.avisame.network.loaders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
+import com.totem.avisame.activities.RegisterActivity;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.Message;
 import com.totem.avisame.network.ServiceCatalog;
@@ -65,5 +67,6 @@ public class UpdateAlertMessageLoader extends JSONWebServiceLoader<Message> {
     @Override
     protected void onInvalidToken() {
 
+        mContext.startActivity(new Intent(mContext, RegisterActivity.class));
     }
 }

@@ -1,12 +1,14 @@
 package com.totem.avisame.network.loaders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.totem.avisame.TokenManager;
+import com.totem.avisame.activities.RegisterActivity;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.User;
 import com.totem.avisame.network.ServiceCatalog;
@@ -68,5 +70,6 @@ public class UpdateUserLoader extends JSONWebServiceLoader<User> {
     @Override
     protected void onInvalidToken() {
 
+        mContext.startActivity(new Intent(mContext, RegisterActivity.class));
     }
 }

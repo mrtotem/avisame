@@ -154,7 +154,7 @@ public abstract class BaseWebServiceLoader<T> extends Loader<LoaderResponse<T>> 
                             onInvalidToken();
                             break;
                         case 403:
-                            onInvalidToken();
+                            deliverResult(wrapError(new Error("Usuario y/o contraseña inválidos")));
                             break;
                         case 503:
                             deliverResult(wrapError(new Error("Error del servidor")));

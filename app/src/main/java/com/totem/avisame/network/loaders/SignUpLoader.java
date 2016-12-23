@@ -1,8 +1,10 @@
 package com.totem.avisame.network.loaders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.totem.avisame.activities.RegisterActivity;
 import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.User;
 import com.totem.avisame.network.ServiceCatalog;
@@ -60,5 +62,6 @@ public class SignUpLoader extends JSONWebServiceLoader<User> {
     @Override
     protected void onInvalidToken() {
 
+        mContext.startActivity(new Intent(mContext, RegisterActivity.class));
     }
 }
