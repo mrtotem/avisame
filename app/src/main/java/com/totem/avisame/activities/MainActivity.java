@@ -35,14 +35,12 @@ import com.totem.avisame.network.loaders.ArrivedMessageLoader;
 import com.totem.avisame.network.loaders.DangerMessageLoader;
 import com.totem.avisame.network.loaders.GetAlertMessagesLoader;
 import com.totem.avisame.network.loaders.GetDangerMessagesLoader;
-import com.totem.avisame.network.loaders.SignInLoader;
 import com.totem.avisame.network.loaders.UpdateAlertMessageLoader;
 import com.totem.avisame.network.loaders.UpdateDangerMessageLoader;
 import com.totem.avisame.network.loaders.UpdateUserLoader;
 import com.totem.avisame.utils.AnimUtils;
 import com.totem.avisame.widgets.CustomTabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -294,7 +292,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTabLayout = (CustomTabLayout) findViewById(R.id.bottom_tabbar);
+        mTabLayout = (CustomTabLayout) findViewById(R.id.up_tabbar);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -324,7 +322,7 @@ public class MainActivity extends AppCompatActivity
 
             for (MainTabs mainTab : mMainTabsList) {
                 TabLayout.Tab tab = mTabLayout.newTab();
-                tab.setIcon(getResources().getDrawable(mainTab.getDrawable()));
+//                tab.setIcon(getResources().getDrawable(mainTab.getDrawable()));
                 tab.setText(mainTab.getTabName());
                 mTabLayout.addTab(tab);
             }

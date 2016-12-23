@@ -52,9 +52,6 @@ public class CustomTabLayout extends TabLayout {
 
     public void setUpTabFont(Tab tab) {
 
-//        if (mTypeface == null)
-//            mTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/Hanken-Book.ttf");
-
         ViewGroup mainView = (ViewGroup) getChildAt(0);
         ViewGroup tabView = (ViewGroup) mainView.getChildAt(tab.getPosition());
 
