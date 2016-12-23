@@ -38,21 +38,23 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
         holder.mDate.setText(temp.getDate());
         holder.mMessage.setText(temp.getMessage());
-        if (temp.getLatitude() != null && temp.getLongitude() != null){
+        if (temp.getLatitude() != null && temp.getLongitude() != null) {
             holder.mLinkToMap.setVisibility(View.VISIBLE);
             holder.mLinkToMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (temp.getLatitude() != null && temp.getLongitude() != null) {
-                        String location = "geo:" + temp.getLatitude() + "," + temp.getLongitude();
-                        Uri gmmIntentUri = Uri.parse(location);
+
+                        String labelLocation = "Usuario Avisame!";
+
+                        Uri gmmIntentUri = Uri.parse("geo:<" + temp.getLatitude() + ">,<" + temp.getLongitude() + ">?q=<" + temp.getLatitude() + ">,<" + temp.getLongitude() + ">(" + labelLocation + ")");
                         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                         mapIntent.setPackage("com.google.android.apps.maps");
                         ((MainActivity) mContext).onLocationShow(mapIntent);
                     }
                 }
             });
-        }else{
+        } else {
             holder.mLinkToMap.setVisibility(View.GONE);
         }
 

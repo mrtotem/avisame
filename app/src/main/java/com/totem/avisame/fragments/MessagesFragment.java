@@ -11,21 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.totem.avisame.R;
 import com.totem.avisame.activities.MainActivity;
 import com.totem.avisame.adapters.MessagesAdapter;
-import com.totem.avisame.application.AppSettings;
 import com.totem.avisame.models.Message;
-import com.totem.avisame.utils.AppUtils;
-import com.totem.avisame.utils.DateUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,9 +43,9 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
+        try {
             mListener = (MainActivity) getActivity();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -97,7 +88,7 @@ public class MessagesFragment extends Fragment {
         ((MainActivity) getActivity()).enableSwipeToRefresh();
     }
 
-    public interface MessagesActions{
+    public interface MessagesActions {
 
         void getAlertMessages();
     }
