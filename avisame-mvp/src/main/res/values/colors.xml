@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#C55B5B</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="transparentBlack90">#90000000</color>
+    <color name="background_dirty_white">#F8F6F7</color>
+    <color name="background_dirty_gray">#99D8D8D8</color>
+    <color name="bpWhite">#FFFFFF</color>
+
+    <!--CustomTab Colors-->
+    <color name="tabLayoutGray">#A2A19F</color>
+    <color name="toolbarGrayTransparent">#DADADA</color>
+    <color name="toolbarGrayTransparent90">#90E6E6E6</color>
+    <color name="toolbarGrayLightTransparent90">#50A2A19F</color>
+    <color name="tabLayoutDarkGrayTransparent90">#904D4D4D</color>
+
+    <!--TextView Colors-->
+    <color name="titleTextView">#555555</color>
+
+    <!--EditText Colors-->
+    <color name="hintEditText">#555555</color>
+    <color name="lightGrayEditText">#A2A19F</color>
+
+    <!--Division lines-->
+    <color name="lightDivisionLine">#60A2A19F</color>
+    <color name="lightCalendarDivisionLine">#E4E1E1</color>
+
+    <!--Button colors-->
+    <color name="colorArrvied">#4E5C72</color>
+</resources>
