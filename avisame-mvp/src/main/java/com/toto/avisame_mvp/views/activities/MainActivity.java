@@ -16,7 +16,7 @@ import com.toto.avisame_mvp.views.interfaces.MainMvpView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements
         MainMvpView,
         MainFragment.MainFragmentActions,

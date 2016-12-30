@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import com.toto.avisame_mvp.R;
 import com.toto.avisame_mvp.application.AppSettings;
 import com.toto.avisame_mvp.utils.AnimUtils;
-import com.toto.avisame_mvp.views.bases.BaseActivity;
 import com.toto.avisame_mvp.views.fragments.SignInFragment;
 import com.toto.avisame_mvp.views.fragments.SignUpFragment;
 

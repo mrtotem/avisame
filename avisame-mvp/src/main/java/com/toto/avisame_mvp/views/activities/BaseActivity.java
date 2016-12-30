@@ -1,13 +1,8 @@
-package com.toto.avisame_mvp.views.bases;
+package com.toto.avisame_mvp.views.activities;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import com.toto.avisame_mvp.R;
 
