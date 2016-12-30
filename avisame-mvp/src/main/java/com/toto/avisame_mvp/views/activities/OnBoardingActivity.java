@@ -1,18 +1,25 @@
 package com.toto.avisame_mvp.views.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.toto.avisame_mvp.R;
 import com.toto.avisame_mvp.application.AppSettings;
+import com.toto.avisame_mvp.models.User;
+import com.toto.avisame_mvp.presenters.OnBoardingPresenter;
 import com.toto.avisame_mvp.utils.AnimUtils;
 import com.toto.avisame_mvp.views.fragments.SignInFragment;
 import com.toto.avisame_mvp.views.fragments.SignUpFragment;
+import com.toto.avisame_mvp.views.interfaces.OnBoardingMvpView;
 
 public class OnBoardingActivity extends BaseActivity
         implements
+        OnBoardingMvpView,
         SignUpFragment.SignUpActions {
+
+    private OnBoardingPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +31,7 @@ public class OnBoardingActivity extends BaseActivity
             goHome();
         } else {
 
-            replaceFragment(SignInFragment.newInstance(), "login-frag", R.id.container, false, BaseActivity.Animations.SlideRightToLeft);
+            replaceFragment(SignInFragment.newInstance(), "login-frag", R.id.container, false);
         }
     }
 
@@ -55,5 +62,30 @@ public class OnBoardingActivity extends BaseActivity
     @Override
     public void onSignUpRequested(Bundle bundle) {
 
+    }
+
+    @Override
+    public void onSignInRequest(User loggedUser) {
+
+    }
+
+    @Override
+    public void onSignUpRequest(User registeredUser) {
+
+    }
+
+    @Override
+    public void showMessage(int stringId) {
+
+    }
+
+    @Override
+    public void showProgressIndicator() {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

@@ -6,15 +6,11 @@ import com.toto.avisame_mvp.models.DangerResponse;
 
 import java.util.List;
 
-public interface MainMvpView extends MvpView {
+public interface MainMvpView extends BaseActivityMvpView {
 
     void showArrivalsMessages(List<ArrivalsResponse> arrivals);
 
     void showAlertsMessages(List<AlertResponse> alerts);
 
     void showDangersMessages(List<DangerResponse> dangers);
-
-    void showMessage(int stringId);
-
-    void showProgressIndicator();
 }

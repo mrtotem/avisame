@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.totem.avisame.R;
+import com.toto.avisame_mvp.R;
 
 /**
  * A simple {@link Fragment} subclass.
