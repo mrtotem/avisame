@@ -77,6 +77,7 @@ public class SignUpFragment extends Fragment {
 
                     args.putString("email", String.valueOf(mEmail.getText()));
                     args.putString("password", String.valueOf(mPassword.getText()));
+                    
                     mListener.onSignUpRequested(args);
                 }
             }

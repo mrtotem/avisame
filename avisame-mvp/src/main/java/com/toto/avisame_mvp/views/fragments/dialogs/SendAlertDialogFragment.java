@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.totem.avisame.R;
-import com.totem.avisame.activities.MainActivity;
-import com.totem.avisame.models.Location;
-import com.totem.avisame.models.Message;
-import com.totem.avisame.utils.DateUtils;
-import com.totem.avisame.utils.LocationUtils;
+import com.toto.avisame_mvp.R;
+import com.toto.avisame_mvp.models.Location;
+import com.toto.avisame_mvp.models.Message;
+import com.toto.avisame_mvp.utils.DateUtils;
+import com.toto.avisame_mvp.utils.LocationUtils;
+import com.toto.avisame_mvp.views.activities.MainActivity;
 
 import java.util.Date;
 

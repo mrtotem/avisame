@@ -5,4 +5,6 @@ public interface BaseActivityMvpView extends MvpView {
     void showMessage(int stringId);
 
     void showProgressIndicator();
+
+    void hideProgressIndicator();
 }

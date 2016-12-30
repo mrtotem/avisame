@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.totem.avisame.R;
+import com.toto.avisame_mvp.R;
 
 /**
  * Created by Octa on 21/07/2016.

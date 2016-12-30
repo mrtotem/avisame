@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.toto.avisame_mvp.R;
 import com.toto.avisame_mvp.application.AppSettings;
@@ -16,9 +17,11 @@ import com.toto.avisame_mvp.enums.MainTabs;
 import com.toto.avisame_mvp.models.AlertResponse;
 import com.toto.avisame_mvp.models.ArrivalsResponse;
 import com.toto.avisame_mvp.models.DangerResponse;
+import com.toto.avisame_mvp.presenters.MainPresenter;
 import com.toto.avisame_mvp.views.fragments.MainFragment;
 import com.toto.avisame_mvp.views.fragments.MessagesFragment;
 import com.toto.avisame_mvp.views.fragments.ProfileFragment;
+import com.toto.avisame_mvp.views.fragments.dialogs.SendAlertDialogFragment;
 import com.toto.avisame_mvp.views.fragments.dialogs.SendDangerDialogFragment;
 import com.toto.avisame_mvp.views.interfaces.MainMvpView;
 import com.toto.avisame_mvp.widgets.CustomTabLayout;
@@ -31,7 +34,10 @@ public class MainActivity extends BaseActivity
         MainFragment.MainFragmentActions,
         MessagesFragment.MessagesActions,
         SendDangerDialogFragment.SendDangerActions,
-        ProfileFragment.ProfileActions {
+        ProfileFragment.ProfileActions,
+        SendAlertDialogFragment.SendAlertActions {
+
+    private MainPresenter presenter;
 
     private CustomTabLayout mTabLayout;
     private MainTabs mMainTabSelected = MainTabs.HOME;
@@ -45,6 +51,9 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        presenter = new MainPresenter();
+        presenter.attachView(this);
 
         mTabLayout = (CustomTabLayout) findViewById(R.id.up_tabbar);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -155,7 +164,12 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void showProgressIndicator() {
+        findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideProgressIndicator() {
+        findViewById(R.id.loading_view).setVisibility(View.GONE);
     }
 
     @Override
@@ -195,6 +209,11 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onUserLogOut() {
+
+    }
+
+    @Override
+    public void onMessageAlertSended(Bundle bundle) {
 
     }
 }

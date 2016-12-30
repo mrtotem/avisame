@@ -35,7 +35,7 @@
             android:background="@drawable/toolbar_bottom_gray" />
     </RelativeLayout>
 
-    <com.totem.avisame.widgets.CustomTabLayout
+    <com.toto.avisame_mvp.widgets.CustomTabLayout
         android:id="@+id/up_tabbar"
         style="@style/AppTabLayout.BottomTab"
         android:layout_width="match_parent"

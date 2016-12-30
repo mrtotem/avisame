@@ -1,17 +1,17 @@
 package com.toto.avisame_mvp.models;
 
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
-import com.totem.avisame.utils.DateUtils;
-
-import java.io.Serializable;
+import com.toto.avisame_mvp.utils.DateUtils;
 
 /**
  * Created by Octavio on 03/12/2016.
  */
-public class Message implements Serializable, Comparable<Message> {
+public class Message implements Parcelable, Comparable<Message> {
 
     @SerializedName("_id")
     private String id;
@@ -30,15 +30,33 @@ public class Message implements Serializable, Comparable<Message> {
     @SerializedName("type")
     private String type;
 
-    public Message(String id, String userId, String name, String message, String date, String latitude, String longitude, String type) {
-        this.id = id;
-        this.userId = userId;
-        this.name = name;
-        this.message = message;
-        this.date = date;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.type = type;
+    protected Message(Parcel in) {
+        this.id = in.readString();
+        this.userId = in.readString();
+        this.name = in.readString();
+        this.message = in.readString();
+        this.date = in.readString();
+        this.latitude = in.readString();
+        this.longitude = in.readString();
+        this.type = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeString(this.id);
+        parcel.writeString(this.userId);
+        parcel.writeString(this.name);
+        parcel.writeString(this.message);
+        parcel.writeString(this.date);
+        parcel.writeString(this.latitude);
+        parcel.writeString(this.longitude);
+        parcel.writeString(this.type);
     }
 
     public String getId() {

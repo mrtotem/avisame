@@ -76,8 +76,11 @@ public class SignInFragment extends Fragment {
                         && (mPassword.getText() != null && !String.valueOf(mPassword.getText()).isEmpty())) {
                     Bundle args = new Bundle();
 
-                    args.putString("email", String.valueOf(mEmail.getText()));
-                    args.putString("password", String.valueOf(mPassword.getText()));
+//                    args.putString("email", String.valueOf(mEmail.getText()));
+//                    args.putString("password", String.valueOf(mPassword.getText()));
+
+                    args.putString("email", "toto@toto.com");
+                    args.putString("password", "test");
                     mListener.onSignInRequested(args);
                 }
             }
