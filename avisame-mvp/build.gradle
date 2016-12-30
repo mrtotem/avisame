@@ -12,8 +12,14 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField "String", "BASE_API_URL", '"https://pacific-atoll-58771.herokuapp.com/"'
+//            buildConfigField "String", "BASE_API_URL", '"https://192.168.88.41:3000/"'
+        }
         release {
             minifyEnabled false
+            buildConfigField "String", "BASE_API_URL", '"https://pacific-atoll-58771.herokuapp.com/"'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,4 +40,5 @@ dependencies {
     testCompile dependencies.jUnit
     testCompile dependencies.mockito
     testCompile dependencies.robolectric
+    compile 'com.google.firebase:firebase-messaging:9.6.1'
 }

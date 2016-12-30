@@ -1,5 +1,8 @@
 package com.toto.avisame_mvp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -8,7 +11,7 @@ import java.util.List;
 /**
  * Created by Octavio on 03/12/2016.
  */
-public class User implements Serializable {
+public class User implements Parcelable {
 
     @SerializedName("_id")
     private String id;
@@ -29,21 +32,46 @@ public class User implements Serializable {
 
     private List<String> friends;
 
-    public User(String id, String token, String pushToken, String email, String password, String firstName, String lastName, String dni) {
-        this.id = id;
-        this.token = token;
-        this.pushToken = pushToken;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dni = dni;
+    protected User(Parcel in) {
+        this.id = in.readString();
+        this.token = in.readString();
+        this.pushToken = in.readString();
+        this.email = in.readString();
+        this.password = in.readString();
+        this.firstName = in.readString();
+        this.lastName = in.readString();
+        this.dni = in.readString();
     }
 
-    public User(String id, String email) {
-        this.id = id;
-        this.email = email;
+    @Override
+    public int describeContents() {
+        return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeString(this.id);
+        parcel.writeString(this.token);
+        parcel.writeString(this.pushToken);
+        parcel.writeString(this.email);
+        parcel.writeString(this.password);
+        parcel.writeString(this.firstName);
+        parcel.writeString(this.lastName);
+        parcel.writeString(this.dni);
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel parcel) {
+            return new User(parcel);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getPushToken() {
         return pushToken;
