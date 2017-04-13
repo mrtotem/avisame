@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/arrived_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2"
+        android:background="@drawable/arrived_button"
+        android:text="LLEGUÉ"
+        android:textColor="@color/bpWhite"
+        android:textSize="11sp" />
+
+    <Button
+        android:id="@+id/alert_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2"
+        android:background="@drawable/alert_button"
+        android:text="ALERTA"
+        android:textColor="@color/bpWhite"
+        android:textSize="11sp" />
+
+    <Button
+        android:id="@+id/danger_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2"
+        android:background="@drawable/danger_button"
+        android:text="PELIGRO"
+        android:textColor="@color/bpWhite"
+        android:textSize="11sp" />
+
+</LinearLayout>

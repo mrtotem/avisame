@@ -32,10 +32,10 @@ import com.totem.avisame.models.Message;
 import com.totem.avisame.models.User;
 import com.totem.avisame.network.base.LoaderResponse;
 import com.totem.avisame.network.loaders.AlertMessageLoader;
-import com.totem.avisame.network.loaders.ArrivedMessageLoader;
-import com.totem.avisame.network.loaders.DangerMessageLoader;
 import com.totem.avisame.network.loaders.AlertMessagesListLoader;
 import com.totem.avisame.network.loaders.ArrivalsMessagesListLoader;
+import com.totem.avisame.network.loaders.ArrivedMessageLoader;
+import com.totem.avisame.network.loaders.DangerMessageLoader;
 import com.totem.avisame.network.loaders.DangerMessagesListLoader;
 import com.totem.avisame.network.loaders.UpdateAlertMessageLoader;
 import com.totem.avisame.network.loaders.UpdateDangerMessageLoader;
@@ -319,9 +319,15 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+    private int pendingWidgetFlag;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            pendingWidgetFlag = getIntent().getExtras().getInt("PENDING_FLAG");
+        }
 
         mTabLayout = (CustomTabLayout) findViewById(R.id.up_tabbar);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -345,6 +351,20 @@ public class MainActivity extends AppCompatActivity
         });
 
         setUpBottomTabBar();
+
+        if (pendingWidgetFlag != 0) {
+            switch (pendingWidgetFlag) {
+                case 1:
+                    onArrivedListener();
+                    break;
+                case 2:
+                    onAlertListener();
+                    break;
+                case 3:
+                    onDangerListener();
+                    break;
+            }
+        }
     }
 
     private void setUpBottomTabBar() {
